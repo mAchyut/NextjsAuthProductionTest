@@ -5,7 +5,7 @@ function HOMEPage() {
     <div className="min-h-screen w-full flex items-center justify-center">
         <h1>
             HOMEPage
-            <Link href={"/login"}>Login</Link>
+            <Link href={"/login"}> <br /> Login</Link>
         </h1>
     </div>
   )

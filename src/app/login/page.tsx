@@ -74,6 +74,7 @@ function Login() {
       </button>
     </div>
     Don&apos;t have an account?<Link href={"/signup"} className="text-blue-600 hover:underline">Create Account</Link>
+    <Link href={"/"}>Home</Link>
    </div>
   )
 }
