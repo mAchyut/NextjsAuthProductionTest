@@ -1,10 +1,10 @@
 "use client";
 import axios from "axios";
 import {  useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import toast from "react-hot-toast";
 
-export default function Verify() {
+  function VerifyComponent() {
   const searchParams = useSearchParams();
   const token = searchParams.get("token"); // Extracts 'token' from query params
   console.log("verify route")
@@ -17,10 +17,11 @@ export default function Verify() {
       const res = await method.post("/api/users/verifyemail", { token });
       toast.success("Email verified successfully!");
       console.log("Verification response", res);
-    } catch (error: any) {
-      console.log(error.message);
-      toast.error("Email verification failed");
-    }
+    }catch (error:unknown) {
+      if(error instanceof Error)
+      console.log(`error in verifying in the user ${error.message}`)
+  else console.log("Error in verifying")
+  }
   };
 
   useEffect(() => {
@@ -30,6 +31,7 @@ export default function Verify() {
   }, [token]);
 
   return (
+    
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-6">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h1 className="text-2xl font-semibold text-center text-gray-800 mb-4">
@@ -43,5 +45,12 @@ export default function Verify() {
         </p>
       </div>
     </div>
+    
   );
+}
+
+export default function Verify(){
+  return <Suspense fallback={<div>Loading...</div>}>
+  <VerifyComponent />
+</Suspense>
 }

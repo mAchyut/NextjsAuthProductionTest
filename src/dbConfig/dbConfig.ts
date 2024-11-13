@@ -8,9 +8,11 @@ const dbConnect = async ()=>{
         // mongoose.connection.on("connected", ()=>{
             
         // })
-    } catch (error:any) {
-        console.log(`Failed to connect with the Database ${error?.message}`);
-        process.exit(1);
+    } catch (error:unknown) {
+        if(error instanceof Error)
+        console.log(`error in connecting the Database ${error.message}`)
+    else console.log("Error in db connection")
+    process.exit(1)
     }
 }
 

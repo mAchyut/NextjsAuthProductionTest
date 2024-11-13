@@ -44,8 +44,9 @@ export async function POST(request: NextRequest) {
         })
 
 
-    } catch (error:any) {
-        return NextResponse.json({error: error.message}, {status:500})
-        
+    } catch (error:unknown) {
+        if(error instanceof Error)
+        console.log(`error in user signup ${error.message}`)
+    else console.log("Error in user signup")
     }
 }

@@ -2,7 +2,13 @@ import User from "@/models/userModel";
 import nodemailer from "nodemailer";
 import bcryptjs from "bcryptjs";
 
-export const sendEmail = async ({ email, emailType, userId }:any) => {
+interface UserData{
+  email:string,
+  emailType:string;
+  userId:string
+}
+
+export const sendEmail = async ({ email, emailType, userId }:UserData) => {
   try {
     // Hash the userId to create a token for verification/reset
     const hashedToken = await bcryptjs.hash(userId.toString(), 10);
@@ -46,7 +52,9 @@ export const sendEmail = async ({ email, emailType, userId }:any) => {
     // Send the email
     const info = await transporter.sendMail(mailOptions);
     return info;
-  } catch (error:any) {
-    throw new Error(error?.message);
-  }
+  } catch (error:unknown) {
+    if(error instanceof Error)
+    console.log(`error in mailing the user for verification ${error.message}`)
+else console.log("Error in sending verification email")
+}
 };

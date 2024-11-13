@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { toast } from "react-hot-toast"
+// import { toast } from "react-hot-toast"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 
@@ -26,10 +26,11 @@ function Signup() {
       const res = await route.post("/api/users/signup", user)
       console.log(res.data)
       router.push("/login")
-    } catch (error: any) {
-      console.log(`Signup failed ${error?.message}`)
-      toast.error(error.message)
-    } finally {
+    } catch (error:unknown) {
+      if(error instanceof Error)
+      console.log(`error in signup user ${error.message}`)
+  else console.log("Error in signup")
+  } finally {
       setLoading(false)
     }
   }

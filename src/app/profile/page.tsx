@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { toast } from "react-hot-toast"
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
@@ -30,9 +29,10 @@ function Profile() {
         const res = (await method.post("/api/users/me")).data
         setUserData(res.data)
         console.log(res.data)
-      } catch (error: any) {
-        toast.error("Failed to fetch user data")
-        console.error(error.message)
+      } catch (error:unknown) {
+        if(error instanceof Error)
+        console.log(`error in user profile ${error.message}`)
+    else console.log("Error in profile")
       }
     })()
   }, [])

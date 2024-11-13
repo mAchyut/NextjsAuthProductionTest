@@ -26,7 +26,9 @@ export async function GET(){
   });
 
   return response;
-    } catch (error: any) {
-        console.log(`error in loggin out the user ${error.message}`)
+    } catch (error:unknown) {
+        if(error instanceof Error)
+        console.log(`error in logging out the user ${error.message}`)
+    else console.log("Error in logout")
     }
 }

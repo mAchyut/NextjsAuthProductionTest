@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { toast } from "react-hot-toast"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 
@@ -25,10 +24,12 @@ function Login() {
       const res = await route.post("/api/users/login", user)
       console.log(res.data)
       router.push("/profile")
-    } catch (error: any) {
-      console.log(`Login failed ${error?.message}`)
-      toast.error(error.message)
-    } finally {
+    } catch (error:unknown) {
+      if(error instanceof Error)
+      console.log(`error in loggin in the user ${error.message}`)
+  else console.log("Error in login")
+  // toast.error(error.message)
+  } finally {
       setLoading(false)
     }
   }

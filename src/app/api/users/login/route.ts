@@ -57,7 +57,9 @@ export async function POST(request: NextRequest){
       });
 
       return response;
-    } catch (error: any) {
+    } catch (error:unknown) {
+        if(error instanceof Error)
         console.log(`error in loggin in the user ${error.message}`)
+    else console.log("Error in login")
     }
 }

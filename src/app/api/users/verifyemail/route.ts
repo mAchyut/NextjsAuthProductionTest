@@ -33,7 +33,9 @@ export async function POST(request: NextRequest){
         success: true
        }, {status: 200})
 
-    } catch (error: any) {
-        return NextResponse.json({error:error.message}, {status: 500})
+    } catch (error:unknown) {
+        if(error instanceof Error)
+        console.log(`error in verifying the user ${error.message}`)
+    else console.log("Error in verifying")
     }
 }
